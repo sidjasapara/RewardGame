@@ -179,7 +179,7 @@ namespace SiddharthJasapara_550.Repository.Service
 
                     last = (from Transactions in DBContext.Transactions where Transactions.user_id == user_id orderby Transactions.date descending select Transactions).FirstOrDefault();
 
-                    if (total + reward < 500)
+                    if (total + reward <= 500)
                     {
                         Transactions transaction = new Transactions();
                         transaction.user_id = user_id;
@@ -189,6 +189,12 @@ namespace SiddharthJasapara_550.Repository.Service
 
                         DBContext.Transactions.Add(transaction);
                         DBContext.SaveChanges();
+
+                        //last = (from Transactions in DBContext.Transactions where Transactions.user_id == user_id orderby Transactions.date descending select Transactions).FirstOrDefault();
+                        //if(last.balance == 500)
+                        //{
+                        //    return 500;
+                        //}
                         return reward;
                     }
                     return 0;
@@ -200,7 +206,7 @@ namespace SiddharthJasapara_550.Repository.Service
                 throw ex;
             }
         }
-    
+
         public int GameCount(int user_id)
         {
             List<Game> games = DBContext.Game.Where(g => g.user_id == user_id).ToList();
