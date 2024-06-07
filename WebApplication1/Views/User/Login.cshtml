@@ -1,0 +1,80 @@
+﻿@model SiddharthJasapara_550.Model.Models.UserLoginModel
+
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_LoginBody.cshtml";
+}
+
+<link href="~/Content/toastr.css" rel="stylesheet" />
+<script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+<script src="~/Scripts/toastr.js"></script>
+
+<div class="row justify-content-center">
+
+    <div class="col-xl-10 col-lg-12 col-md-9">
+
+        <div class="card o-hidden border-0 shadow-lg my-5">
+            <div class="card-body p-0">
+                <!-- Nested Row within Card Body -->
+                <div class="row">
+                    <div class="col-lg-6 d-none d-lg-block bg-login-image"></div>
+                    <div class="col-lg-6">
+                        <div class="p-5">
+                            <div class="text-center">
+                                <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
+                            </div>
+                            <form class="user" method="post">
+                                <div class="form-group">
+                                    @Html.EditorFor(model => model.email, new { htmlAttributes = new { @class = "form-control rounded-pill", placeholder = "Enter Email Address..." } })
+                                    @Html.ValidationMessageFor(m => m.email, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="form-group">
+                                    @Html.EditorFor(model => model.password, new { htmlAttributes = new { @class = "form-control rounded-pill", placeholder = "Password" } })
+                                    @Html.ValidationMessageFor(m => m.password, "", new { @class = "text-danger" })
+                                </div>
+
+                                <button class="btn btn-primary rounded-pill w-100">
+                                    Login
+                                </button>
+                                <hr>
+                                <div class="text-center">
+                                    <a class="small" href="~/User/Register">Create an Account!</a>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+@if (TempData["Registered"] != null)
+{
+    <script>
+        toastr.success("@TempData["Registered"]")
+    </script>
+}
+
+@if (TempData["LoggedOut"] != null)
+{
+    <script>
+        toastr.success("@TempData["LoggedOut"]")
+    </script>
+}
+
+@if (ViewBag.error != null)
+{
+    <script>
+        toastr.error("@ViewBag.error")
+    </script>
+}
+
+@if (ViewBag.empty != null)
+{
+    <script>
+        toastr.error("@ViewBag.empty")
+    </script>
+}
